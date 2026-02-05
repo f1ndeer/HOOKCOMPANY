@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "HOOKCOMPANY",
+			"path": "."
+		},
+		{
+			"name": "HookCompany",
+			"path": "../../../Downloads/HookCompany"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "HOOKCOMPANY"
+	}
+}

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity EV | Hook Company</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --bg-main: #050505;
+            --text-main: #e0e0e0;
+            --accent: #FF3300;
+            --border: 1px solid rgba(255, 255, 255, 0.15);
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-tech: 'JetBrains Mono', monospace;
+        }
+        
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            margin: 0;
+            line-height: 1.6;
+        }
+        /* --- Header (Glassmorphism) --- */
+        
+        header {
+            padding: 2rem 4vw;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        
+        .logo {
+            font-family: var(--font-tech);
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        
+        .nav-link {
+            font-family: var(--font-tech);
+            font-size: 0.8rem;
+            color: #888;
+            text-decoration: none;
+            text-transform: uppercase;
+            border: var(--border);
+            padding: 8px 16px;
+            transition: 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: #fff;
+            color: #000;
+        }
+        /* --- Hero Section --- */
+        
+        .case-hero {
+            padding: 140px 4vw 80px;
+            border-bottom: var(--border);
+        }
+        
+        .case-title {
+            font-size: clamp(3rem, 7vw, 6rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 60px;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+        
+        .case-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            font-family: var(--font-tech);
+            font-size: 0.85rem;
+            color: #888;
+            border-top: var(--border);
+            padding-top: 30px;
+        }
+        
+        .meta-label {
+            display: block;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+        /* --- Image Styling --- */
+        
+        .case-img-container {
+            width: 100%;
+            height: 75vh;
+            overflow: hidden;
+            border-bottom: var(--border);
+        }
+        
+        .case-img-full {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            filter: grayscale(100%) contrast(1.1);
+            transition: 0.7s ease;
+        }
+        
+        .case-img-container:hover .case-img-full {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.02);
+        }
+        /* --- Content Blocks --- */
+        
+        .content-block {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            padding: 100px 4vw;
+            border-bottom: var(--border);
+        }
+        
+        .block-title {
+            font-family: var(--font-tech);
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+        
+        .block-text p {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            color: #d0d0d0;
+            max-width: 800px;
+        }
+        
+        .block-text p:last-child {
+            margin-bottom: 0;
+        }
+        /* --- Stats Grid --- */
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-bottom: var(--border);
+        }
+        
+        .stat-item {
+            background: var(--bg-main);
+            padding: 60px 4vw;
+            text-align: center;
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-family: var(--font-tech);
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        /* --- Next Case Link --- */
+        
+        .next-case {
+            padding: 100px 4vw;
+            text-align: center;
+            border-bottom: var(--border);
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.4s;
+            background: var(--bg-main);
+        }
+        
+        .next-case:hover {
+            background: #111;
+        }
+        
+        .next-label {
+            font-family: var(--font-tech);
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .next-title {
+            font-size: 4rem;
+            text-transform: uppercase;
+            margin: 0;
+            font-weight: 400;
+        }
+        /* --- Footer --- */
+        
+        footer {
+            padding: 40px 4vw;
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-tech);
+            font-size: 0.8rem;
+            color: #444;
+        }
+        /* --- Адаптивність (Mobile) --- */
+        
+        @media(max-width: 900px) {
+            .case-meta,
+            .content-block,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .content-block {
+                gap: 30px;
+                padding: 60px 4vw;
+            }
+            .case-img-container {
+                height: 50vh;
+            }
+            .stat-item {
+                padding: 40px 4vw;
+                border-bottom: 1px solid #222;
+            }
+            .block-title {
+                position: static;
+                margin-bottom: 20px;
+            }
+            .case-title {
+                font-size: 3rem;
+            }
+            .next-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../main/index.html" class="logo">HOOK COMPANY_</a>
+        <a href="../page4/index.html" class="nav-link">НАЗАД В АРХІВ</a>
+    </header>
+
+    <section class="case-hero">
+        <h1 class="case-title">Velocity EV Dashboard</h1>
+        <div class="case-meta">
+            <div><span class="meta-label">КЛІЄНТ</span>Velocity Auto Group</div>
+            <div><span class="meta-label">РІК</span>2025</div>
+            <div><span class="meta-label">ПОСЛУГА</span>Embedded UI / UX</div>
+            <div><span class="meta-label">СТЕК</span>Qt 6, C++, Linux</div>
+        </div>
+    </section>
+
+    <div class="case-img-container">
+        <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=2000&auto=format&fit=crop" class="case-img-full" alt="Electric Vehicle Interface">
+    </div>
+
+    <section class="content-block">
+        <div class="block-title">// 01. ПРОБЛЕМА СКЛАДНОСТІ</div>
+        <div class="block-text">
+            <p>Сучасні автомобільні інтерфейси часто перевантажені інформацією, що відволікає водія. Крім того, час "холодного старту" (cold boot) системи часто перевищує 10 секунд, що є неприпустимим для преміального сегменту.</p>
+            <p>Завданням було створити "невидимий" інтерфейс, який передбачає потреби водія, завантажується миттєво і не вимагає глибокої навігації по меню під час руху.</p>
+        </div>
+    </section>
+
+    <section class="content-block">
+        <div class="block-title">// 02. ІНЖЕНЕРНЕ РІШЕННЯ</div>
+        <div class="block-text">
+            <p>Ми обрали фреймворк Qt 6 у поєднанні з низькорівневою оптимізацією на C++. Це дозволило досягти стабільних 60 FPS навіть на обмеженому апаратному забезпеченні автомобіля (Embedded Linux).</p>
+            <p>Інтерфейс повністю векторний і адаптується під будь-який розмір екрану: від 10-дюймової приладової панелі до 17-дюймової центральної консолі.</p>
+        </div>
+    </section>
+
+    <div class="stats-grid">
+        <div class="stat-item">
+            <span class="stat-number">1.2s</span>
+            <span class="stat-label">Час Завантаження</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">60fps</span>
+            <span class="stat-label">Плавність Анімацій</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">4K</span>
+            <span class="stat-label">Роздільна Здатність</span>
+        </div>
+    </div>
+
+    <section class="content-block">
+        <div class="block-title">// 03. UX ФОКУС</div>
+        <div class="block-text">
+            <p>Дизайн базується на концепції "Glanceable Info" (Інформація за погляд). Ми прибрали всі зайві декорації та скевоморфізм. Шрифти та іконки розроблені спеціально для швидкого зчитування боковим зором.</p>
+            <p>Система підтримує розширене голосове керування та безконтактні жести, дозволяючи водієві не знімати руки з керма для перемикання треків або зміни клімат-контролю.</p>
+        </div>
+    </section>
+
+    <a href="../page9/index.html" class="next-case">
+        <span class="next-label">НАСТУПНИЙ КЕЙС</span>
+        <h2 class="next-title">Cyber Shield -></h2>
+    </a>
+
+    <footer>
+        <span>HOOK COMPANY © 2026</span>
+        <span>SYSTEM READY</span>
+    </footer>
+</body>
+
+</html>

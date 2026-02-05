@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hook Company | Цифрові Архітектори</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+         :root {
+            --bg-main: #050505;
+            --text-main: #e0e0e0;
+            --accent: #FF3300;
+            --border: 1px solid rgba(255, 255, 255, 0.15);
+            --grid-line: 1px solid rgba(255, 255, 255, 0.03);
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-tech: 'JetBrains Mono', monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Запобігає горизонтальному скролу */
+        }
+        /* --- Header з ефектом скла (як на нових сторінках) --- */
+        
+        header {
+            padding: 1.5rem 4vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.9);
+            /* Напівпрозорий фон */
+            backdrop-filter: blur(10px);
+            /* Ефект розмиття */
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -0.05em;
+            font-weight: 700;
+        }
+        
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-link {
+            font-family: var(--font-tech);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            /* Якщо не працює, можна #888 */
+            text-decoration: none;
+            text-transform: uppercase;
+            border: var(--border);
+            padding: 8px 16px;
+            transition: 0.3s;
+            white-space: nowrap;
+            /* Текст не переноситься */
+        }
+        
+        .nav-link:hover {
+            background: #fff;
+            color: #000;
+        }
+        /* --- Адаптація Header для мобільних --- */
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 1rem 4vw;
+            }
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+            .nav-link {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+        }
+        /* --- Стилі Слайдера (з попередніх кроків) --- */
+        
+        .work {
+            border-top: var(--grid-line);
+            padding: 6vw 4vw;
+            overflow: hidden;
+        }
+        
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+            border-bottom: var(--grid-line);
+            padding-bottom: 20px;
+        }
+        
+        .slider-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .slider-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-main);
+            width: 50px;
+            height: 50px;
+            font-family: var(--font-tech);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .slider-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
+        
+        .slider-counter {
+            font-family: var(--font-tech);
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .slider-container {
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .slider-track {
+            display: flex;
+            gap: 40px;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .slide {
+            min-width: 60%;
+            text-decoration: none;
+            color: var(--text-main);
+            position: relative;
+            display: block;
+        }
+        
+        .slide-image {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .slide-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: grayscale(100%);
+        }
+        
+        .slide:hover .slide-image img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        
+        .slide:hover .slide-overlay {
+            opacity: 1;
+        }
+        
+        .view-case {
+            font-family: var(--font-tech);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            text-transform: uppercase;
+        }
+        
+        .slide-info {
+            border-left: 2px solid var(--accent);
+            padding-left: 15px;
+        }
+        
+        .slide-meta {
+            font-family: var(--font-tech);
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .slide-info h3 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .slide-info p {
+            color: #888;
+            /* fixed CSS var issue */
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                min-width: 90%;
+            }
+            .slide-image {
+                height: 300px;
+            }
+            .slider-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grid-overlay">
+        <div class="grid-line"></div>
+        <div class="grid-line"></div>
+        <div class="grid-line"></div>
+        <div class="grid-line"></div>
+    </div>
+
+    <header>
+        <div class="logo">Hook Company_</div>
+        <nav>
+            <a href="./page4/index.html" class="nav-link">Роботи</a>
+            <a href="./page5/index.html" class="nav-link">Кар'єра</a>
+            <a href="./page2/index.html" class="nav-link">Контакти</a>
+            <a href="./page3/index.html" class="nav-link" style="color: var(--accent); border-color: var(--accent);">Розпочати</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-meta">
+            <span>ЗАСН. 2025</span>
+            <span>УКРАЇНА / GLOBAL</span>
+        </div>
+        <h1>
+            <span>Інженерія</span>
+            <span>Цифрова</span>
+            <span>Досконалість</span>
+        </h1>
+        <div>
+            <a href="./page3/index.html" class="cta-btn">Розпочати Проект</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <span class="section-label">01 // Можливості</span>
+
+        <div class="service-list">
+            <article class="service-item">
+                <div class="service-meta">ARCH 01</div>
+                <h3 class="service-name">Дизайн Інтерфейсів</h3>
+                <p class="service-desc">Ми прибираємо зайвий шум. Точний UI, що ставить у пріоритет функцію, ієрархію та наміри користувача.</p>
+            </article>
+
+            <article class="service-item">
+                <div class="service-meta">DEV 02</div>
+                <h3 class="service-name">Full-Stack Розробка</h3>
+                <p class="service-desc">Надійна архітектура на NestJS та React. Код, що масштабується так само легко, як і працює.</p>
+            </article>
+
+            <article class="service-item">
+                <div class="service-meta">STRAT 03</div>
+                <h3 class="service-name">Цифрова Ідентичність</h3>
+                <p class="service-desc">Брендинг, що проривається крізь ринок. Логотипи, типографіка та візуальні системи.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="work" id="work">
+        <div class="slider-header">
+            <span class="section-label">02 // ВИБРАНІ КЕЙСИ</span>
+
+            <div class="slider-controls">
+                <button class="slider-btn" id="prevBtn"><</button>
+                <div class="slider-counter">
+                    <span id="currentSlide">01</span> / <span id="totalSlides">03</span>
+                </div>
+                <button class="slider-btn" id="nextBtn">></button>
+            </div>
+        </div>
+
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack">
+
+                <a href="./page4/article-fintech.html" class="slide">
+                    <div class="slide-image">
+                        <img src="https://images.unsplash.com/photo-1480694313141-fce5e697ee25?q=80&w=2070&auto=format&fit=crop" alt="Fintech">
+                        <div class="slide-overlay">
+                            <span class="view-case">ЧИТАТИ КЕЙС -></span>
+                        </div>
+                    </div>
+                    <div class="slide-info">
+                        <div class="slide-meta">
+                            <span>РІК: 2024</span>
+                            <span>РОЛЬ: BACKEND</span>
+                        </div>
+                        <h3>Fintech Core</h3>
+                        <p>Банківська інфраструктура високого навантаження.</p>
+                    </div>
+                </a>
+
+                <a href="./page4/article-aero.html" class="slide">
+                    <div class="slide-image">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Aero">
+                        <div class="slide-overlay">
+                            <span class="view-case">ЧИТАТИ КЕЙС -></span>
+                        </div>
+                    </div>
+                    <div class="slide-info">
+                        <div class="slide-meta">
+                            <span>РІК: 2025</span>
+                            <span>РОЛЬ: UI/UX</span>
+                        </div>
+                        <h3>Aero Systems</h3>
+                        <p>Панель телеметрії для авіації.</p>
+                    </div>
+                </a>
+
+                <a href="./page4/article-mono.html" class="slide">
+                    <div class="slide-image">
+                        <img src="https://images.unsplash.com/photo-1498084393753-b411b2d26b34?q=80&w=2070&auto=format&fit=crop" alt="Mono">
+                        <div class="slide-overlay">
+                            <span class="view-case">ЧИТАТИ КЕЙС -></span>
+                        </div>
+                    </div>
+                    <div class="slide-info">
+                        <div class="slide-meta">
+                            <span>РІК: 2023</span>
+                            <span>РОЛЬ: FULLSTACK</span>
+                        </div>
+                        <h3>Mono Art</h3>
+                        <p>E-Commerce Галерея сучасного мистецтва.</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="manifesto">
+        <p>
+            <span>Ми не прикрашаємо. Ми будуємо.</span><br> Кожен піксель має мету. <br>
+            <span class="highlight">Дизайн — це видимий інтелект.</span>
+        </p>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-brand">
+            <h4>Hook Company.</h4>
+            <p style="color: #666; font-size: 0.9rem;">Спроектовано в Україні.</p>
+        </div>
+        <div class="footer-col">
+            <h5>Карта сайту</h5>
+            <a href="./page4/index.html">Архів Робіт</a>
+            <a href="./page5/index.html">Кар'єра / HR</a>
+            <a href="./page3/index.html">Розпочати</a>
+        </div>
+        <div class="footer-col">
+            <h5>Соцмережі</h5>
+            <a href="https://discord.gg/VTVzd63N">Discord</a>
+            <a href="https://github.com/f1ndeer">Github </a>
+
+        </div>
+        <div class="footer-col">
+            <h5>Запити</h5>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@hook.com" target="_blank">hello@hook.com</a>
+            <a href="./page2/index.html" style="color: var(--accent); margin-top: 10px; font-size: 0.9rem;">Отримати розрахунок -></a>
+        </div>
+    </footer>
+
+    <script>
+        const track = document.getElementById('sliderTrack');
+        const slides = document.querySelectorAll('.slide');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const currentSlideSpan = document.getElementById('currentSlide');
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function updateSlider() {
+            // Отримуємо ширину слайда + gap (40px)
+            const slideWidth = slides[0].offsetWidth + 40;
+            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+            // Оновлюємо лічильник
+            currentSlideSpan.textContent = (currentIndex + 1).toString().padStart(2, '0');
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Повернутися на початок
+            }
+            updateSlider();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = totalSlides - 1; // Перейти в кінець
+            }
+            updateSlider();
+        });
+
+        window.addEventListener('resize', updateSlider);
+    </script>
+
+</body>
+
+</html>
